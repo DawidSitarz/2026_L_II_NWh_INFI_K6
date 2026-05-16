@@ -1,22 +1,22 @@
-version: 2.1 
+version: 2.1
 
- 
 
-jobs: 
 
-  build-and-test:  
+jobs:
 
-    machine: 
+  build-and-test:
 
-      image: ubuntu-2004:current 
+    machine:
 
-        
+      image: ubuntu-2004:current
 
-    steps: 
+      docker_layer_caching: true
 
-      - checkout 
+    steps:
 
-      - run: make deps 
+      - checkout
+
+      - run: make deps
 
       - run: make lint
 
@@ -24,10 +24,14 @@ jobs:
 
       - run: make docker_build
 
-workflows: 
+      - run: make docker_push
 
-  basic:  
 
-    jobs: 
 
-      - build-and-test 
+workflows:
+
+  basic:
+
+    jobs:
+
+      - build-and-test
